@@ -1,0 +1,2 @@
+export const DICTIONARY_PAGE = 'DICTIONARY_PAGE';
+export const SETTING_PAGE = 'SETTING_PAGE';

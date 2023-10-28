@@ -1,0 +1,1 @@
+export const LOAD_WORD_LISTS = 'LOAD_WORD_LIST';
