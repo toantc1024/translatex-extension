@@ -19,7 +19,6 @@ const Dictionary = () => {
   };
 
   const getWordSuggestion = async (value) => {
-    setSuggestWord([]);
     setShowSuggest(true);
     let response = await fetch('http://127.0.0.1:4000/suggest', {
       method: 'POST',
@@ -32,11 +31,21 @@ const Dictionary = () => {
     let { suggest } = await response.json();
     if ((suggest != null || suggest != undefined) && suggest.length > 0)
       setSuggestWord(suggest);
+    else setSuggestWord([]);
   };
 
   useEffect(() => {
     console.log({ suggestWord });
   }, [suggestWord]);
+
+  const splitWords = (word, pattern) => {
+    let a = word.substr(0, pattern.length);
+    let b = word.substr(pattern.length);
+    if (b.length) {
+      return [a, b];
+    }
+    return [a];
+  };
 
   return (
     <div className="h-full w-full">
@@ -73,19 +82,14 @@ const Dictionary = () => {
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 getWordMeaning(e.target.value);
-                setShowSuggest(false);
+                // setShowSuggest(false);
               }
             }}
           />
-          <button
-            type="submit"
-            class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Tra cứu
-          </button>
 
           {suggestWord && suggestWord.length > 0 && (
             <ul
+              tabIndex={0}
               className={` mt-2 w-full max-h-[200px] h-auto border border-gray-300 rounded-md bg-white absolute overflow-y-auto ${
                 showSuggest ? '' : 'hidden'
               }`}
@@ -103,9 +107,19 @@ const Dictionary = () => {
                         setShowSuggest(false);
                       }}
                     >
-                      <span>{suggest}</span>
-                      {/* <span className="font-bold text-sky-500">{text}</span> */}
-                      {/* <span>{suggest.split(text)[1]}</span> */}
+                      {splitWords(suggest, text).map((part, i) => {
+                        return (
+                          <a
+                            className={`${
+                              i == 0
+                                ? 'font-bold text-sky-500'
+                                : 'text-gray-600'
+                            }`}
+                          >
+                            {part}
+                          </a>
+                        );
+                      })}
                     </li>
                   );
                 })}
