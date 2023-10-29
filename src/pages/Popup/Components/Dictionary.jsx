@@ -50,8 +50,8 @@ const Dictionary = () => {
   return (
     <div className="h-full w-full">
       {/* Word input */}
-      <div className="w-full relative p-4">
-        <div class="relative">
+      <div className="w-full relative p-4 ">
+        <div class="relative ">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
               class="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -82,7 +82,7 @@ const Dictionary = () => {
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 getWordMeaning(e.target.value);
-                // setShowSuggest(false);
+                setShowSuggest(false);
               }
             }}
           />
@@ -97,9 +97,12 @@ const Dictionary = () => {
               {showSuggest &&
                 suggestWord &&
                 suggestWord.length > 0 &&
-                suggestWord.map((suggest) => {
+                suggestWord.map((suggest, index) => {
                   return (
                     <li
+                      key={index}
+                      role="option"
+                      aria-selected={true}
                       className="text-sm cursor-pointer active:bg-slate-200 p-4 hover:bg-gray-100 w-full bg-slate-50"
                       onClick={() => {
                         setText(suggest);
@@ -126,9 +129,6 @@ const Dictionary = () => {
             </ul>
           )}
         </div>
-        {/* Pop up when click */}
-        {/* Result */}
-        {/* {JSON.stringify(data)} */}
         {data && (
           <div>
             {/* Word title */}
@@ -143,13 +143,25 @@ const Dictionary = () => {
                 data.meanings.map((meaning) => {
                   return (
                     <div className="p-2">
-                      <h1 className="text-2xl">{meaning.partOfSpeech}</h1>
-                      <div>
+                      <h1 className="text-lg italic p-2">
+                        {meaning.partOfSpeech}
+                      </h1>
+                      <div className="border-gray border-[1px] rounded-lg p-2">
+                        <h1 className="font-extrabold bg-blue-600 rounded-lg p-2 text-white ">
+                          Định nghĩa
+                        </h1>
                         {meaning.definitions &&
                           meaning.definitions.map((definition, i) => {
                             return (
-                              <div>
-                                {i}. {definition['definition']}
+                              <div className="text-2sm p-2 text-gray-600 flex flex-col">
+                                <span className="font-bold ">
+                                  {definition['definition']}
+                                </span>
+                                <span>{definition['definition_vi']}</span>
+
+                                {definition['example'] && (
+                                  <li>{definition['example']}</li>
+                                )}
                               </div>
                             );
                           })}
