@@ -52,7 +52,7 @@ const Dictionary = () => {
       {/* Word input */}
       <div className="w-full relative p-4 ">
         <div class="relative ">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3  cursor-pointer">
             <svg
               class="w-4 h-4 text-gray-500 dark:text-gray-400"
               aria-hidden="true"
@@ -71,6 +71,7 @@ const Dictionary = () => {
           </div>
           <input
             type="search"
+            id="dictionary-search"
             autoComplete="off"
             class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none focus:ring-1"
             value={text}
@@ -162,6 +163,16 @@ const Dictionary = () => {
                                 {definition['example'] && (
                                   <li>{definition['example']}</li>
                                 )}
+
+                                <div className="flex gap-2">
+                                  {definition['synonyms'].map((synonym) => {
+                                    return (
+                                      <div className="bg-red-400 p-2 rounded-lg">
+                                        {synonym}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
                               </div>
                             );
                           })}
