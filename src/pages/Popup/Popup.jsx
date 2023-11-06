@@ -7,7 +7,6 @@ import SettingPage from './Components/SettingPage';
 
 const Popup = () => {
   const [currentPage, setCurrentPage] = useState(DICTIONARY_PAGE);
-
   return (
     <div className="App">
       <MenuBar

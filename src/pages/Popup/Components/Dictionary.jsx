@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import WordCard from './WordCard/WordCard';
 
 const Dictionary = () => {
   const [text, setText] = useState('');
@@ -48,7 +49,7 @@ const Dictionary = () => {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full max-h-[519px] overflow-auto w-full">
       {/* Word input */}
       <div className="w-full relative p-4 ">
         <div class="relative ">
@@ -79,8 +80,12 @@ const Dictionary = () => {
               setText(e.target.value);
               getWordSuggestion(e.target.value);
             }}
-            placeholder="Search word"
+            placeholder="Bạn cần tìm từ gì?"
             onKeyDown={(e) => {
+              if (e.key === 'ArrowDown') {
+                console.log(e.target.nextSibling.firstChild);
+                e.target.nextSibling.firstChild.focus();
+              }
               if (e.key === 'Enter') {
                 getWordMeaning(e.target.value);
                 setShowSuggest(false);
@@ -104,7 +109,7 @@ const Dictionary = () => {
                       key={index}
                       role="option"
                       aria-selected={true}
-                      className="text-sm cursor-pointer active:bg-slate-200 p-4 hover:bg-gray-100 w-full bg-slate-50"
+                      className="focus:bg-red-400 text-sm cursor-pointer active:bg-slate-200 p-4 hover:bg-gray-100 w-full bg-slate-50"
                       onClick={() => {
                         setText(suggest);
                         getWordMeaning(suggest);
@@ -116,7 +121,7 @@ const Dictionary = () => {
                           <a
                             className={`${
                               i == 0
-                                ? 'font-bold text-sky-500'
+                                ? 'font-bold text-blue-500'
                                 : 'text-gray-600'
                             }`}
                           >
@@ -131,57 +136,14 @@ const Dictionary = () => {
           )}
         </div>
         {data && (
-          <div>
-            {/* Word title */}
-            <div className="p-4 border-b-[1px] flex gap-2">
-              <span className="text-2xl font-bold">{data['word']}</span>
-              <span className="text-xl font-light">{data['phonetic']}</span>
-            </div>
-
-            {/* Meaning */}
-            <div className="mt-2 bg-white border-[1px] rounded-lg">
-              {data.meanings &&
-                data.meanings.map((meaning) => {
-                  return (
-                    <div className="p-2">
-                      <h1 className="text-lg italic p-2">
-                        {meaning.partOfSpeech}
-                      </h1>
-                      <div className="border-gray border-[1px] rounded-lg p-2">
-                        <h1 className="font-extrabold bg-blue-600 rounded-lg p-2 text-white ">
-                          Định nghĩa
-                        </h1>
-                        {meaning.definitions &&
-                          meaning.definitions.map((definition, i) => {
-                            return (
-                              <div className="text-2sm p-2 text-gray-600 flex flex-col">
-                                <span className="font-bold ">
-                                  {definition['definition']}
-                                </span>
-                                <span>{definition['definition_vi']}</span>
-
-                                {definition['example'] && (
-                                  <li>{definition['example']}</li>
-                                )}
-
-                                <div className="flex gap-2">
-                                  {definition['synonyms'].map((synonym) => {
-                                    return (
-                                      <div className="bg-red-400 p-2 rounded-lg">
-                                        {synonym}
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              </div>
-                            );
-                          })}
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
+          <WordCard
+            data={data}
+            searchWord={(word) => {
+              setText(word);
+              getWordMeaning(word);
+              // setShowSuggest(false);
+            }}
+          />
         )}
       </div>
     </div>

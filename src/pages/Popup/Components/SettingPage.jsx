@@ -1,13 +1,26 @@
 import React from 'react';
-import { HiBookOpen, HiBookmark, HiClock } from 'react-icons/hi';
+import { HiBookOpen, HiBookmark, HiClock, HiStar } from 'react-icons/hi';
 
 const SettingPage = () => {
   return (
     <div className="h-full flex flex-col items-center justify-center gap-2">
-      <button className="bg-white border-[1px] border-gray-200 p-4 rounded-lg w-[350px] flex items-center justify-between text-xl group hover:bg-blue-600 text-gray-600 hover:text-white">
+      <button
+        className="bg-white border-[1px] border-gray-200 p-4 rounded-lg w-[350px] flex items-center justify-between text-xl group hover:bg-blue-600 text-gray-600 hover:text-white"
+        onClick={() => {
+          let panelTab = chrome.runtime.getURL('wordbook.html');
+          // Check if the options page exists, if so focus it, if not open it
+          chrome.tabs.query({ url: panelTab }, (tabs) => {
+            if (tabs.length) {
+              chrome.tabs.update(tabs[0].id, { active: true });
+            } else {
+              chrome.tabs.create({ url: panelTab });
+            }
+          });
+        }}
+      >
         <span>Sổ tay từ vựng</span>
         <span className="text-2xl group-hover:scale-[1.5] transition-all ease-in-out duration-150">
-          <HiBookmark />
+          <HiStar />
         </span>
       </button>
       <button className="bg-white border-[1px] border-gray-200 p-4 rounded-lg w-[350px] flex items-center justify-between text-xl group hover:bg-blue-600 text-gray-600 hover:text-white">
