@@ -7,14 +7,10 @@ const WordCard = ({ data, searchWord }) => {
       {/* Word title */}
       <div className="p-4 border-b-[1px] flex gap-2">
         <span className="text-2xl font-bold">{data['word']}</span>
-        <div className="flex gap-2 items-center justify-between group relative transition-all ease-in-out duration-150">
-          <button className="border-[1px] text-shadow shadow-lg rounded-full group ">
-            <HiStar className=" text-3xl text-gray-200 group-hover:text-gray-300" />
+        <div className="flex gap-2 items-center justify-between group relative transition-all ease-in-out duration-150 ">
+          <button className="border-[1px] text-shadow shadow-lg hover:bg-slate-100 rounded-full group ">
+            <HiStar className=" text-3xl text-gray-200 group-hover:text-yellow-400" />
           </button>
-
-          <div className="hidden transition-all ease-in-out duration-150 w-auto min-w-[125px] w-auto absolute left-0  group-hover:block group-hover:left-[2.5rem] p-2 rounded-lg  bg-orange-400 text-white font-bold">
-            add to word book
-          </div>
         </div>
 
         {/* <span className="text-xl font-light">{data['phonetic']}</span> */}

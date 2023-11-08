@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+  --default-border-color: #e5e5e5;
+  --max-index: 100;
+  --default-border-radius: 15px;
+}
+
+resultpanel,
+resultpanel > *,
+#result-panel * {
+  font-family: 'Ubuntu', 'Noto Sans', 'Segoe UI', sans-serif !important;
+}
+
+#app-result-panel {
+  position: absolute;
+  z-index: var(--max-index);
+}
+#result-panel {
+  height: 300px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 300px;
+  background-color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--default-border-color);
+  border-radius: var(--default-border-radius);
+  display: flex;
+  flex-direction: column;
+}
+
+#result-panel-header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid var(--default-border-color);
+}
+
+#result-panel-header button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border: 1px solid var(--default-border-color);
+  color: gray;
+  font-size: 1rem;
+  padding: 1px;
+  margin: 1px;
+  border-radius: 50%;
+  transition: background-color 150ms ease-in-out;
+  &:hover {
+    background-color: rgb(216, 216, 216);
+  }
+}
+#result-panel-header button#result-panel-header-bookmark:hover {
+  background-color: greenyellow;
+  color: rgb(53, 53, 53);
+}
+
+#result-content::-webkit-scrollbar {
+  width: 8px;
+  background-color: white; /* or add it to the track */
+}
+
+#result-content::-webkit-scrollbar-thumb {
+  width: 5px;
+  border-radius: 5px;
+  background-color: rgb(216 216 216); /* or add it to the track */
+}
+
+#result-content {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--default-border-radius);
+}
+
+translate {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999999999;
+  background-color: white;
+  border: 1px solid rgb(196, 196, 196);
+  padding: 5px;
+  font-weight: bold;
+  font-size: 7.5rem;
+  transition: box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  animation: fadeIn 100ms ease-in-out;
+}
+
+translate:hover {
+  box-shadow: 0 0 10px rgba(255, 208, 0, 0.555);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.translate::after {
+  content: '';
+  border-width: 10px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+translate {
+  font-family: 'Ubuntu', 'Noto Sans', 'Segoe UI', sans-serif !important;
+  font-size: 30px !important;
+}
+
+.word-meaning-container {
+  border: 1px solid var(--default-border-color);
+  border-radius: var(--default-border-radius);
+  padding: 5px;
+  & .phonetic-container {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    border: 1px solid var(--default-border-color);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    margin: 0.25rem;
+    border-radius: 8px;
+  }
+
+  & .audio-button {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    cursor: pointer;
+    height: 30px;
+    padding: 0.25rem;
+    border: 1px solid var(--default-border-color);
+    border-radius: 50%;
+    &:hover {
+      background-color: #2dd4bf;
+      & .volume-icon {
+        color: white;
+      }
+    }
+    transform: background-color 0.5s ease-in-out;
+    & .volume-icon {
+      color: #2dd4bf;
+      font-size: 5rem;
+    }
+  }
+}
+
+/* Append from tailwind */
+.bg-sky-400 {
+  background-color: #38bdf8 !important;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.font-bold {
+  font-weight: bold !important;
+}
+
+.bg-emerald-400 {
+  background-color: #2dd4bf !important;
+}
+
+.bg-sky-400 {
+  background-color: #2563eb !important;
+}

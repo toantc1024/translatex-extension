@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import WordCard from './WordCard/WordCard';
-
+import { BiMessageSquareAdd } from 'react-icons/bi';
+import DictionaryPlaceHolder from './Placeholder/DictionaryPlaceHolder';
 const Dictionary = () => {
   const [text, setText] = useState('');
   const [data, setData] = useState(null);
@@ -49,7 +50,7 @@ const Dictionary = () => {
   };
 
   return (
-    <div className="h-full max-h-[519px] overflow-auto w-full">
+    <div className="h-full max-h-[519px] overflow-auto w-auto">
       {/* Word input */}
       <div className="w-full relative p-4 ">
         <div class="relative ">
@@ -135,16 +136,19 @@ const Dictionary = () => {
             </ul>
           )}
         </div>
-        {data && (
-          <WordCard
-            data={data}
-            searchWord={(word) => {
-              setText(word);
-              getWordMeaning(word);
-              // setShowSuggest(false);
-            }}
-          />
-        )}
+        {
+          data ? (
+            <WordCard
+              data={data}
+              searchWord={(word) => {
+                setText(word);
+                getWordMeaning(word);
+                // setShowSuggest(false);
+              }}
+            />
+          ) : null
+          // <DictionaryPlaceHolder />
+        }
       </div>
     </div>
   );
