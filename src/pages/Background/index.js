@@ -1,9 +1,19 @@
+import { addWord, checkWord } from '../../libs/wordbook.utils';
+
 // Create receive message from content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'translate') {
     // Send response with data
     lookUpWordData(request.text).then((data) => sendResponse({ data }));
+  } else if (request.type === 'checkWord') {
+    // Send response with data
+    checkWord(request.text).then((data) => sendResponse({ data }));
+  } else if (request.type === 'addWord') {
+    // Send response with data
+    addWord(request.data).then((data) => sendResponse({ data }));
   }
+
+  console.log(request.type);
   return true;
 });
 //

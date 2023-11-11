@@ -7,3 +7,8 @@ export const DEFAULT_SETTINGS = {
 };
 export const DICTIONARY_PAGE = 'DICTIONARY_PAGE';
 export const SETTING_PAGE = 'SETTING_PAGE';
+
+export const WORDLIST_PAGE = 'WORDLIST_PAGE';
+export const FLASHCARD_PAGE = 'FLASHCARD_PAGE';
+export const QUIZ_PAGE = 'QUIZ_PAGE';
+export const ROOT_ROUTE = 'http://127.0.0.1:4000';

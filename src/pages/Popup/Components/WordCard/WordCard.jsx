@@ -1,16 +1,59 @@
-import React, { Fragment } from 'react';
-import { HiOutlineVolumeUp, HiStar } from 'react-icons/hi';
+import React, { Fragment, useEffect, useState } from 'react';
+import { HiOutlineVolumeUp, HiStar, HiX } from 'react-icons/hi';
 import Sentence from './Sentence';
-const WordCard = ({ data, searchWord }) => {
+import { addWord, checkWord } from '../../../../libs/wordbook.utils';
+const WordCard = ({
+  data,
+  searchWord,
+  isWordBookCard = false,
+  onDeleteHandler = () => {},
+}) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const getData = async () => {
+      let response = await checkWord(data['word']);
+      setIsFavorite(response);
+    };
+
+    getData();
+  }, [data]);
+
   return (
     <div>
       {/* Word title */}
-      <div className="p-4 border-b-[1px] flex gap-2">
+      <div className="p-4 border-b-[1px] flex gap-2 flex items-center justify-between">
         <span className="text-2xl font-bold">{data['word']}</span>
-        <div className="flex gap-2 items-center justify-between group relative transition-all ease-in-out duration-150 ">
-          <button className="border-[1px] text-shadow shadow-lg hover:bg-slate-100 rounded-full group ">
-            <HiStar className=" text-3xl text-gray-200 group-hover:text-yellow-400" />
-          </button>
+        <div
+          className={`flex gap-2 items-center justify-between group relative transition-all ease-in-out duration-150`}
+        >
+          {!isWordBookCard ? (
+            <button
+              className={`border-[1px] text-shadow shadow-lg hover:bg-slate-100  rounded-full group`}
+              onClick={async () => {
+                let added = await addWord(data);
+                console.log(added);
+                setIsFavorite(added);
+              }}
+            >
+              <HiStar
+                className={` text-3xl  ${
+                  isFavorite
+                    ? 'text-yellow-600'
+                    : 'text-gray-200 group-hover:text-yellow-400'
+                } `}
+              />
+            </button>
+          ) : (
+            <button
+              className={`border-[1px] text-shadow shadow-lg hover:bg-red-400   rounded-full group`}
+              onClick={() => {
+                onDeleteHandler(data['uid']);
+              }}
+            >
+              <HiX className="text-3xl text-gray-600 group-hover:text-white" />
+            </button>
+          )}
         </div>
 
         {/* <span className="text-xl font-light">{data['phonetic']}</span> */}

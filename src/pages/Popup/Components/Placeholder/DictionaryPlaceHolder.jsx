@@ -1,42 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { getWordOfTheDay } from '../../../../libs/wordbook.utils';
 
-const DictionaryPlaceHolder = () => {
-  const DEFAULT_EMOJIES = [
-    ['🤠', '🌵 Cowboy'],
-    ['👨‍🚀', '🚀 Astronaut'],
-    ['👨‍🍳', '🍳 Chef'],
-    ['👨‍🎨', '🎨 Artist'],
-    ['👨‍🔬', '🔬 Scientist'],
-    ['👨‍💻', '💻 Programmer'],
-    ['👨‍🏫', '🏫 Teacher'],
-    ['👨‍🚒', '🚒 Firefighter'],
-    ['👮‍♂️', '🚓 Police Officer'],
-    ['👷‍♂️', '🚧 Construction Worker'],
-  ];
-  const [emojies, setEmojies] = useState(DEFAULT_EMOJIES[0]);
-  const [index, setIndex] = useState(0);
+const DictionaryPlaceHolder = ({ searchWord }) => {
+  const [word, setWord] = useState(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      let new_index = index + 1;
-      if (new_index >= DEFAULT_EMOJIES.length) {
-        new_index = 0;
-      }
-      setIndex(new_index);
-    }, 4750);
+    (async () => {
+      let data = await getWordOfTheDay();
+      setWord(data);
+    })();
+  }, []);
 
-    //Clearing the interval
-    return () => clearInterval(interval);
-  }, [index]);
+  useEffect(() => {}, [word]);
 
   return (
-    <div className="z-0 flex items-center justify-center mt-48 relative">
-      <div className="p-4 bg-white border-[1px] rounded-full w-[100px] h-[100px] flex items-center justify-center">
-        <span className="text-4xl">{'🤔'}</span>
-      </div>
-      <div className="absolute top-[-65px] right-[25px] p-4 bg-white border-[1px] shadow-lg rounded-full min-w-[50px] w-auto h-[50px] flex items-center justify-center ">
-        <span className="text-2xl">{DEFAULT_EMOJIES[index][1]}</span>
-      </div>
+    <div className="z-0 relative text-gray-600 border-[1px] p-2 rounded-lg  mt-2 text-4xl h-[400px] flex flex-col items-center justify-center">
+      {word && (
+        <Fragment>
+          <div></div>
+          <span className="text-2xl">Từ của ngày hôm nay</span>
+          <div
+            className="p-4 border-[1px] rounded-full hover:bg-gradient-to-b hover:from-blue-600 hover:to-blue-600 transition-all ease-in-out duration-150 hover:text-white m-2 cursor-pointer z-0"
+            onClick={() => {
+              searchWord(word['word']);
+            }}
+          >
+            {word['word']}
+          </div>
+          <div className="text-sm flex  text-center items-center justify-center">
+            {JSON.stringify(
+              word['meanings'][0]['definitions'][0]['definition_vi']
+            )}
+          </div>
+        </Fragment>
+      )}
     </div>
   );
 };

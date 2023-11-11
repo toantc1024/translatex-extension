@@ -56,11 +56,16 @@ resultpanel > *,
     background-color: rgb(216, 216, 216);
   }
 }
-#result-panel-header button#result-panel-header-bookmark:hover {
+
+#result-panel-header button#result-panel-header-bookmark:hover,
+#result-panel-header-bookmark button.favorited {
   background-color: greenyellow;
   color: rgb(53, 53, 53);
 }
-
+button.favorited {
+  background-color: #eec723 !important;
+  color: white !important;
+}
 #result-content::-webkit-scrollbar {
   width: 8px;
   background-color: white; /* or add it to the track */
