@@ -7,8 +7,7 @@
 // 6. Add a button to add the word to the history
 
 import React from 'react';
-import { KMPSearch } from './KMP-search';
-
+import { KMPSearch } from '../../../../libs/KMP-Search';
 const Sentence = ({ content, word }) => {
   // Upercase
   const getParts = (content, word) => {

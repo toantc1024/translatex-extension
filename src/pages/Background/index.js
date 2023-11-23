@@ -1,4 +1,4 @@
-import { addWord, checkWord } from '../../libs/wordbook.utils';
+import { addWord, checkWord, deleteWord } from '../../libs/wordbook.utils';
 
 // Create receive message from content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -10,7 +10,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     checkWord(request.text).then((data) => sendResponse({ data }));
   } else if (request.type === 'addWord') {
     // Send response with data
-    addWord(request.data).then((data) => sendResponse({ data }));
+    checkWord(request.data).then((data) => {
+      if (!data) {
+        addWord(request.data).then((data) => sendResponse({ data }));
+      } else {
+        deleteWord(request.data).then(sendResponse({ data: false }));
+      }
+    });
   }
 
   console.log(request.type);

@@ -24,6 +24,7 @@ const Dictionary = () => {
       {/* Word input */}
       <div className="w-full relative p-4 ">
         <SearchBar
+          wordMeaning={data}
           getWordMeaning={getWordMeaning}
           text={text}
           setText={(value) => setText(value)}

@@ -1,3 +1,29 @@
-.card.flipped {
-  transform: rotate3d(1, 0, 0, 180deg) !important;
+.card {
+  transform-style: preserve-3d;
+}
+
+/* .card {
+  transform: rotateY(180deg);
+} */
+
+.card.active,
+.card .back {
+  transform: perspective(850px) rotateY(180deg);
+}
+
+.card .front {
+  position: absolute;
+  background-color: white;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  position: absolute;
+  transform: rotateX(0deg);
+  z-index: 1;
+  backface-visibility: hidden;
 }

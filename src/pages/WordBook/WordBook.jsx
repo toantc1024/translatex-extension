@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import './WordBook.css';
 import { deleteWord, getWords } from '../../libs/wordbook.utils';
 import WordCard from '../Popup/Components/WordCard/WordCard';
+import Memory from './Memory';
 import {
   FLASHCARD_PAGE,
   QUIZ_PAGE,
@@ -41,7 +42,7 @@ const WordBook = ({ title }) => {
         {/* Comfirm modal */}
 
         {/* Content */}
-        <div className="w-full h-screen overflow-hidden relative">
+        <div className="w-full bg-white h-screen overflow-hidden relative">
           {deleteModal && (
             <ConfirmModal
               uid={deleteWordUID}
@@ -92,7 +93,7 @@ const WordBook = ({ title }) => {
               <FlashCard />
             </div>
           ) : route == QUIZ_PAGE ? (
-            <div>QUIZ</div>
+            <Memory />
           ) : null}
         </div>
       </div>

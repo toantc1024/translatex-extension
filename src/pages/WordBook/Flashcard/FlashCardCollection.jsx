@@ -1,7 +1,11 @@
 import React from 'react';
 
 const FlashCardCollection = () => {
-  return <div>FlashCardCollection</div>;
+  return (
+    <div>
+      <h1>Learn new things!</h1>
+    </div>
+  );
 };
 
 export default FlashCardCollection;
