@@ -34,7 +34,7 @@ const RoutesTool = ({ setRoute }) => {
 
       <div className="relative flex items-center justify-center group">
         <button
-          className="relative p-2 rounded-full border-[1px] border-gray-300 group group-hover:bg-teal-400 outline-none active:bg-yellow-500 transition-all ease-in-out duration-150 group-hover:text-white group-hover:rotate-[8deg] "
+          className="relative p-2 rounded-full border-[1px] border-gray-300 group group-hover:bg-blue-500 outline-none active:bg-yellow-500 transition-all ease-in-out duration-150 group-hover:text-white group-hover:rotate-[8deg] "
           onClick={() => setRoute(FLASHCARD_PAGE)}
         >
           <PiCardsDuotone className="text-4xl text-gray-600  group-hover:text-white" />

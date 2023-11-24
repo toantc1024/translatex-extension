@@ -30,16 +30,16 @@ const Fill = ({ data }) => {
       {data && (
         <div className="flex flex-col gap-4 h-full w-full">
           {
-            <span className="flex gap-2 items-center text-2xl">
+            <span className="flex gap-2 items-center text-xl">
               {data.question_content.map((part) => {
                 return (
                   <div>
                     {part.toLowerCase() === data.answer.toLowerCase() ? (
                       !isCorrect ? (
-                        <input className="border-2 border-gray-300 rounded-md w-20 h-10" />
+                        <input className="border-2 border-gray-300 rounded-md min-w-20 w-auto h-10" />
                       ) : (
                         <input
-                          className="border-2 border-gray-300 rounded-md w-20 h-10 text-blue-600"
+                          className="border-2 border-gray-300 rounded-md min-w-20 w-auto h-10 text-blue-600"
                           value={data.answer}
                         />
                       )

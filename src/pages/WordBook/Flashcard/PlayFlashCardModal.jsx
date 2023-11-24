@@ -11,9 +11,9 @@ import {
 import Typing from './Typing/Typing';
 import Fill from './Fill/Fill';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
-import { HiX } from 'react-icons/hi';
+import { HiStar, HiX } from 'react-icons/hi';
 
-const PlayFlashCardModal = ({ questionList, exit }) => {
+const PlayFlashCardModal = ({ questionList, exit, numberOfWords }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questionSequence, setQuestionSequence] = useState(null);
   const [isAnswered, setIsAnswered] = useState(undefined);
@@ -23,6 +23,13 @@ const PlayFlashCardModal = ({ questionList, exit }) => {
     setIsAnswered(false);
     setIsFlipped(undefined);
     setIsLearned(false);
+  };
+
+  const [resultModal, setResultModal] = useState(false);
+
+  const showResultModal = () => {
+    setResultModal(true);
+    // exit();
   };
 
   useEffect(() => {
@@ -38,6 +45,32 @@ const PlayFlashCardModal = ({ questionList, exit }) => {
       className="absolute bg-white w-full h-full flex items-center justify-center"
       style={{ zIndex: 99999999999999 }}
     >
+      {resultModal && (
+        <div
+          className="absolute w-full h-full bg-blue-600 flex items-center justify-center"
+          style={{ zIndex: 99999999999999 }}
+        >
+          <div className="w-[500px] h-[500px] bg-white rounded-xl flex items-center justify-center flex-col gap-4">
+            <div className="text-2xl font-bold text-gray-600">Result</div>
+            <div className=" font-bold  text-4xl bg-blue-600 p-2 rounded-lg text-white">
+              You have learned {numberOfWords} words
+            </div>
+            <div className="">
+              {[
+                ...new Array(
+                  Math.floor(numberOfWords / 10) == 0
+                    ? 1
+                    : Math.floor(numberOfWords / 10) >= 5
+                    ? 5
+                    : Math.floor(numberOfWords / 10)
+                ),
+              ].map((item, index) => (
+                <HiStar className="text-4xl text-yellow-400 animate-bounce" />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       <div className="w-full h-full flex items-center justify-center">
         {questionSequence && (
           <div>
@@ -118,8 +151,7 @@ const PlayFlashCardModal = ({ questionList, exit }) => {
             onClick={() => {
               resetState();
               if (currentQuestionIndex === questionSequence.length - 1) {
-                alert('Done!');
-                exit();
+                showResultModal();
               } else {
                 if (
                   questionSequence &&

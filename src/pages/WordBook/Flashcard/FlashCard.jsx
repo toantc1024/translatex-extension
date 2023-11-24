@@ -27,13 +27,14 @@ const FlashCard = () => {
     <div className="w-full h-full">
       {isFlashCardModalOpen && (
         <PlayFlashCardModal
+          numberOfWords={wordbookQuestions.length}
           exit={() => {
             setIsFlashCardModalOpen(false);
           }}
           questionList={questionList}
         />
       )}
-      <div className="py-4 px-4 bg-white border-[1px] text-gray-600 font-light w-full z-[1000] bg-white text-2xl">
+      <div className="py-4 px-4 bg-blue-500 text-white border-[1px] text-gray-600 font-bold w-full z-[1000] bg-white text-2xl">
         Flashcard
       </div>
       <div className="h-screen w-full overflow-auto relative  items-center p-8">

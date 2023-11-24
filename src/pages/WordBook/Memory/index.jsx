@@ -16,9 +16,9 @@ const Memory = () => {
     })();
   }, []);
   const getColor = (freq) => {
-    if (freq > 10) {
+    if (freq > 5) {
       return '#60a5fa'; // blue in HSL
-    } else if (freq > 5) {
+    } else if (freq > 2) {
       return '#38bdf8'; // yellow in HSL
     } else {
       return '#06b6d4   '; // green in HSL
@@ -29,11 +29,11 @@ const Memory = () => {
     console.log(freqList);
   }, [freqList]);
   return (
-    <div className="w-full h-full p-2">
-      <div className="mb-4 mt-4">
-        <h1 className="text-4xl ">Long-term memory list</h1>
+    <div className="w-full h-full">
+      <div className="py-4 px-4 bg-blue-500 text-white border-b-[1px] text-gray-600 font-bold w-full z-[1000] bg-white text-2xl">
+        Long-term memory-list
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-2">
         {freqList &&
           Object.entries(freqList)
             .sort((a, b) => {

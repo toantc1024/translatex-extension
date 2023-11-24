@@ -34,7 +34,7 @@ const SearchBar = ({ wordMeaning, getWordMeaning, text, setText, route }) => {
       <div
         class={`absolute top-0 bottom-0 m-auto  inset-y-0 left-[5px]  flex items-center flex items-center justify-center w-[40px] h-[40px]  rounded-full w- cursor-pointer ${
           isSpeaking
-            ? 'text-blue-400 bg-blue-200'
+            ? 'text-blue-400 bg-blue-200 animate-pulse'
             : 'text-gray-600  hover:text-gray-400'
         }`}
         onClick={async () => {
@@ -46,17 +46,22 @@ const SearchBar = ({ wordMeaning, getWordMeaning, text, setText, route }) => {
           recognition.start();
           recognition.continuous = false;
           recognition.interimResults = true;
+          // Set time out for 2s
+          let timeOut = setTimeout(() => {
+            recognition.stop();
+          }, 3000);
           recognition.onresult = async (event) => {
             setIsSpeaking(false);
             let text = event.results[0][0].transcript;
             if (!text) return;
             setText(text);
+            clearTimeout(timeOut);
             await getWordMeaning(text);
             console.log(wordMeaning);
           };
           recognition.onend = () => {
             setIsSpeaking(false);
-
+            clearTimeout(timeOut);
             // You can restart the service if needed
           };
         }}

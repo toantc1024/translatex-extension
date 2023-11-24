@@ -41,61 +41,65 @@ const WordBook = ({ title }) => {
         <RoutesTool setRoute={(value) => setRoute(value)} />
         {/* Comfirm modal */}
 
-        {/* Content */}
-        <div className="w-full bg-white h-screen overflow-hidden relative">
-          {deleteModal && (
-            <ConfirmModal
-              uid={deleteWordUID}
-              onCancelHandler={() => {
-                setDeleteModal(false);
-              }}
-              onConfirmHandler={async (uid) => {
-                let response = await deleteWord(uid);
-                if (response) {
-                  setWordList(
-                    wordList.filter((word) => word['uid'] != deleteWordUID)
-                  );
-                }
-                setDeleteModal(false);
-              }}
-              data={wordList.find((word) => word['uid'] == deleteWordUID)}
-            />
-          )}
+        <div className="w-full h-full flex flex-col">
           {route == WORDLIST_PAGE ? (
-            <div>
-              <div className="p-4">
-                <SearchBar
-                  getWordMeaning={() => {}}
-                  text={searchKey}
-                  setText={(value) => setSearchKey(value)}
-                  route={`${ROOT_ROUTE}/wordbook`}
-                />
-              </div>
-
-              <div className=" grid grid-cols-3 p-4 gap-2">
-                {wordList.map((word) => {
-                  return (
-                    <div className="w-auto max-h-[400px] overflow-auto border-[1px] rounded-xl">
-                      <WordCard
-                        data={word}
-                        isWordBookCard={true}
-                        onDeleteHandler={(uid) => {
-                          onDeleteHandler(uid);
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="p-4 border-b-[1px]">
+              <SearchBar
+                getWordMeaning={() => {}}
+                text={searchKey}
+                setText={(value) => setSearchKey(value)}
+                route={`${ROOT_ROUTE}/wordbook`}
+              />
             </div>
-          ) : route == FLASHCARD_PAGE ? (
-            <div>
-              <FlashCard />
-            </div>
-          ) : route == QUIZ_PAGE ? (
-            <Memory />
           ) : null}
+
+          <div className="w-full bg-white h-screen overflow-auto  relative">
+            {deleteModal && (
+              <ConfirmModal
+                uid={deleteWordUID}
+                onCancelHandler={() => {
+                  setDeleteModal(false);
+                }}
+                onConfirmHandler={async (uid) => {
+                  let response = await deleteWord(uid);
+                  if (response) {
+                    setWordList(
+                      wordList.filter((word) => word['uid'] != deleteWordUID)
+                    );
+                  }
+                  setDeleteModal(false);
+                }}
+                data={wordList.find((word) => word['uid'] == deleteWordUID)}
+              />
+            )}
+            {route == WORDLIST_PAGE ? (
+              <div>
+                <div className=" grid grid-cols-3 p-4 gap-2">
+                  {wordList.map((word) => {
+                    return (
+                      <div className="w-auto max-h-[400px] overflow-auto border-[1px] rounded-xl">
+                        <WordCard
+                          data={word}
+                          isWordBookCard={true}
+                          onDeleteHandler={(uid) => {
+                            onDeleteHandler(uid);
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : route == FLASHCARD_PAGE ? (
+              <div>
+                <FlashCard />
+              </div>
+            ) : route == QUIZ_PAGE ? (
+              <Memory />
+            ) : null}
+          </div>
         </div>
+        {/* Content */}
       </div>
     </Fragment>
   );

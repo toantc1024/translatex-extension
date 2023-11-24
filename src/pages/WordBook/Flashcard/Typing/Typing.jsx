@@ -39,7 +39,7 @@ const Typing = ({ data }) => {
             return (
               <input
                 key={index}
-                className={`text-6xl  text-gray-600 w-[50px] h-auto border-[1px] rounded-xl p-2 ${
+                className={`text-6xl  text-gray-600 w-[70px] text-center flex items-center justify-center h-auto border-[1px] rounded-xl p-2 ${
                   isCorrect
                     ? 'bg-green-400'
                     : 'focus:outline-blue-600 focus:outline-2'

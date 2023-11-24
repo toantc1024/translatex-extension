@@ -319,3 +319,21 @@ export const getRandomWords = (word, number) => {
       });
   });
 };
+
+export const getHistory = () => {
+  return new Promise((resolve, reject) => {
+    fetch(`${route}/history`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
